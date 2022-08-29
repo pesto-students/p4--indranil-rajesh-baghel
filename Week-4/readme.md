@@ -1,3 +1,15 @@
+4.1:
+
+const getNumber = () =>
+    new promise((resolve, reject)) => {
+        const randomNumber = Math.floor(Math.random() * 100);
+        if (randomNumber % 5 === 0){
+            reject('Rejected number: ${randomNumber})
+        }
+        resolve('Resolveded number: ${randomNumber}')
+    });
+
+
 4.2:
 
 Var Person = function(){};
