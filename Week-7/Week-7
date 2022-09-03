@@ -1,1 +1,128 @@
+==========================================7.1 ========================
 
+function reverse(head) {
+    let node = head,
+        previous,
+        tmp;
+  
+  while (node) {
+      tmp = node.next;
+  
+      // reverse pointer
+      node.next = previous;
+  
+      // step forward in the list
+      previous = node;
+      node = tmp;
+    }
+  
+    return previous;
+  }
+
+=========================================7.2 =============================
+
+const rotate = (head, k) => {
+    if(!k || !head || !Headers.next) {
+        return head
+    }
+    let len = 1, tail = Headers;
+    while(tail.next){
+        tail = tail.next;
+        len++;
+    }
+    tail.next = head ;
+    k %= len;
+
+    for (let i = 0; i < len - k; i++){
+        tail = tail.next;
+    }
+    head = tail.next;
+    tail.next = null;
+    return head;
+};
+=========================================7.3 =============================
+
+const hasCycle = (head) => {
+    let slow = head
+    let fast = head
+    while(fast && fast.next){
+        fast = fast.next.next
+        slow = slow.next
+        if(slow === fast){
+            return true
+        }
+    }
+    
+    return false
+}
+  
+=========================================7.4 =================================
+
+const isValid = (s) => {
+    const stack = [];
+    
+    for (let i = 0; i < s.length; i += 1) {
+      const top = stack[stack.length - 1];
+      if (s[i] === '(' || s[i] === '{' || s[i] === '[') {
+        stack.push(s[i]);
+      } else if (s[i] === ')' && top === '(' && stack.length !== 0) {
+        stack.pop();
+      } else if (s[i] === ']' && top === '[' && stack.length !== 0) {
+        stack.pop();
+      } else if (s[i] === '}' && top === '{' && stack.length !== 0) {
+        stack.pop();
+      } else {
+        return false;
+      }
+    }
+    
+    return stack.length === 0;
+  };
+
+=========================================7.5 =====================================
+
+function NGE(arr){
+    var stack = [];
+    var n = arr.length
+    stack.push(arr[0]);
+    for (var i = 1; i < n; i++) {
+        if (stack.length == 0) {
+            stack.push(arr[i]);
+            continue;
+        }
+  
+        while (stack[stack.length-1] < arr[i]) 
+        {
+            console.log( stack[stack.length-1] + " --> " + arr[i]);
+            stack.pop();
+        }
+  
+        stack.push(arr[i]);
+    }
+  
+    while (stack.length !=0) {
+        console.log( stack[stack.length-1] + " --> " + -1);
+        stack.pop();
+    }
+}
+  
+=========================================7.6 =====================================
+var Stack1 = [];
+var Stack2 = [];
+
+function Enqueue(element) {
+  Stack1.push(element);
+}
+
+function Dequeue() {
+  if (Stack2.length === 0) {
+    if (Stack1.length === 0) { 
+      return 'Cannot dequeue because queue is empty';
+    }
+    while (Stack1.length > 0) {
+      var p = Stack1.pop();
+      Stack2.push(p);
+    }
+  }
+  return Stack2.pop();
+}
