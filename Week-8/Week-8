@@ -1,1 +1,151 @@
+//================8.1 ==============// Max Depth of binary tree //
+class node{
+    constructor(element){
+        this.data = element;
+        this.left = null;
+        this.right = null;
+    }
+
+}
+function maxDepth(node){
+    if (node == null)
+            return -1;
+    else
+        {
+            let leftDepth = maxDepth(node.left);
+            let rightDepth = maxDepth(node.right);
+
+            if (leftDepth > rightDepth)
+                return (leftDepth + 1);
+             else
+                return (rightDepth + 1);
+        }
+    }
+
+// ================ 8.2 ==================== Isvalid BST  //
+
+var isvalid = function(root){
+    function recurse(root, min, max){
+        if (!root) return true;
+        if ((root.val > max) || (root.val < min)){
+            return false;
+        }
+        return recurse(root.left, min, root.val) && recurse(root.right, root.val, max);
+
+    }
+}
+
+
+// ================= 8.3 ==================== Binary Tree inorder Traversal //
+
+var levelorder = function(root) {
+    if(!root) return [];
+    const queue = [root];
+    const result = [];
+
+    while(queue.length) {
+        let len = queue.length;
+        result.push(queue.map(node => node.val));
+
+        while(len--){
+            let node = queue.shift();
+            if(node.left)queue.push(node.left);
+            if(node.right)queue.push(node.right);
+
+        }
+    }
+
+    return result;
+};
+
+
+// ================ 8.4 ======================== Path exist or not //
+
+var validpath = function(n, edges, source, destination) {
+    let graph = new Map();
+    let visited = new Set();
+
+    for(let [v,e] of edges) {
+        if(graph.has(v)){
+            graph.get(v).push(e);
+        }else {
+            graph.set(v, [e]);
+        }
+        if(graph.has(e)){
+            graph.get(e).push(v);
+        }else {
+            graph.set(e, [v]);
+        }
+
+    }
+
+    function dfs(vertex) {
+        visited.add(vertex);
+
+        let neighbours = graph.get(vertex);
+
+        if(neighbours && neighbours.length > 0){
+            for(let i=0; i<neighbours.length; i++){
+                if(!visited.has(neighbours[i])){
+                    dfs(neighbours[i])
+                }
+            }
+        }
+    }
+    dfs(source);
+    return visited.has(destination)
+
+}
+
+
+
+// ================= 8.5 ====================== find the Town judge //
+
+var findJudge = function(n, trust){
+    let trustcount = new Array(N + 1).fill(0);
+
+    for (let [i,j] of trust) {
+        trustcount[i] -= 1;
+        trustcount[j] += 1;
+
+    }
+
+    for (let i =1; i < trustcount.length; i++){
+        if(trustcount[i] === N-1){
+            return i;
+        }
+    }
+    return -1;
+
+}
+
+
+
+
+
+// =============== 8.6 ====================  All Path source Traget // 
+
+var allPath = function(graph){
+    const n = graph.length -1;
+
+    dfs(0);
+
+    return result;
+
+    function dfs(position) {
+        path.push(position);
+
+        if(position == n){
+            result.push([...path]);    
+        }
+
+        const nextnodes = graph[position];
+        for(let i=0; i < nextnodes.length; i++){
+            dfs(nextnodes[i]);
+        }
+        path.pop();
+
+    }
+}
+
 
